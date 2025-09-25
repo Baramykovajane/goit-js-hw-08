@@ -77,7 +77,6 @@ const markup = images
           src="${preview}"
           data-source="${original}"
           alt="${description}"
-          width="360px"
         />
       </a>
     </li>
@@ -85,21 +84,21 @@ const markup = images
   )
   .join('');
 
-
 gallery.insertAdjacentHTML('beforeend', markup);
 
 gallery.addEventListener('click', (event) => {
   event.preventDefault();
-});
-gallery.addEventListener('click', (event) => {
-  event.preventDefault();
 
-  if (event.target.nodeName !== 'IMG') return;
+  const img = event.target;
+  if (img.nodeName !== 'IMG') return;
 
-  const largeImage = event.target.dataset.source;
+  const largeImageURL = img.dataset.source;
+  const altText = img.alt;
 
   const instance = basicLightbox.create(`
-    <img src="${largeImage}" width="1112px" height="640px">
+    <div class="modal">
+      <img src="${largeImageURL}" alt="${altText}">
+    </div>
   `);
 
   instance.show();
